@@ -1,10 +1,23 @@
 /* Style général du composant */
 h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   text-align: center;
-  color: #343a40; /* Couleur sombre pour le texte */
-  font-weight: 600; /* Poids du texte plus fort pour l'en-tête */
+  position: relative;
+
+}
+
+/* Ligne colorée sous le titre */
+h2::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 4px; /* Épaisseur de la ligne */
+  background-color: #0033A0; /* Couleur bleu belge, changez si vous préférez une autre couleur belge */
+  position: absolute;
+  left: 10%;
+  bottom: -10px; /* Ajustez la position selon vos besoins */
+  border-radius: 2px; /* Bordure arrondie si désiré */
 }
 
 /* Style des boutons */
@@ -33,10 +46,16 @@ button:focus {
 /* Style du formulaire de filtrage */
 .filter-container {
   display: flex;
-  gap: 1.5rem; /* Espacement entre les éléments du formulaire */
+  gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-  align-items: center; /* Alignement vertical des éléments */
+  margin-bottom: 1rem;
+  justify-content: center;
+  position: sticky;
+  top: 0; /* Fixe le formulaire en haut de la page */
+  background-color: #817e7a; /* Assure que le fond est opaque et lisible */
+  padding: 0.5rem; /* Espacement interne */
+  z-index: 2; /* Assure que le formulaire est au-dessus du contenu */
+  border-bottom: 1px solid #dee2e6; /* Bordure pour séparer du reste du contenu */
 }
 
 .filter-container label {
@@ -49,7 +68,7 @@ button:focus {
   padding: 0.75rem;
   border: 1px solid #ced4da;
   border-radius: 0.375rem; /* Bordure légèrement plus arrondie */
-  width: 220px; /* Largeur fixe mais légèrement plus grande */
+  width: 200px; /* Largeur fixe mais légèrement plus grande */
   transition: border-color 0.3s;
 }
 
@@ -60,41 +79,43 @@ input:focus {
 
 /* Style du tableau */
 table {
-  width: 100%;
+  width: 95%;
   border-collapse: collapse;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
+  border: 1px solid #dee2e6; /* Bordure autour du tableau */
+  margin: 0 auto 1.2rem;
 }
 
 thead {
-  background-color: #e9ecef;
+  background-color: #f8f9fa;
+  color: #495057;
+  position: sticky;
+  top: 0; /* Fixe l'en-tête en haut du tableau */
+  z-index: 1; /* Assure que l'en-tête est au-dessus du contenu */
 }
 
 th, td {
-  padding: 1rem;
+  padding: 0.75rem;
   text-align: left;
   border-bottom: 1px solid #dee2e6;
 }
 
 th {
-  font-weight: 600;
-  color: #495057;
+  font-weight: bold;
+  background-color: #e9ecef;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-tbody tr:hover {
-  background-color: #ffffff; /* Couleur de survol pour les lignes */
+  background-color: #f2f2f2;
 }
 
 td {
   vertical-align: middle;
 }
 
-/* Style pour les messages */
 td[colspan="6"] {
   text-align: center;
   font-style: italic;
   color: #6c757d;
 }
+

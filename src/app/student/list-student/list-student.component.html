@@ -1,13 +1,14 @@
-<h2>Liste des élèves</h2>
-<button routerLink="/create-student">Ajouter un élève</button>
+<div></div><h2>Liste des élèves</h2>
 
 <!-- Formulaire de filtrage -->
 <div class="filter-container">
-  <label for="nomFilter">Filtrer par Nom:</label>
-  <input id="nomFilter" [(ngModel)]="nomFilter" (ngModelChange)="filterEleves()" placeholder="Nom">
+  <button routerLink="/create-student">Ajouter un élève</button>
 
-  <label for="prenomFilter">Filtrer par Prénom:</label>
-  <input id="prenomFilter" [(ngModel)]="prenomFilter" (ngModelChange)="filterEleves()" placeholder="Prénom">
+  <!--<label for="nomFilter">Filtrer par Nom:</label>-->
+  <input id="nomFilter" [(ngModel)]="nomFilter" (ngModelChange)="filterEleves()" placeholder="Filtrer par Nom">
+
+  <!--<label for="prenomFilter">Filtrer par Prénom:</label>-->
+  <input id="prenomFilter" [(ngModel)]="prenomFilter" (ngModelChange)="filterEleves()" placeholder="Filtrer par Prénom">
 </div>
 
 <!-- Affichage des messages -->
