@@ -1,0 +1,100 @@
+/* Style général du composant */
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #343a40; /* Couleur sombre pour le texte */
+  font-weight: 600; /* Poids du texte plus fort pour l'en-tête */
+}
+
+/* Style des boutons */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.375rem; /* Bordure légèrement plus arrondie */
+  font-size: 1rem;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Transition pour les effets de survol */
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère au survol */
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Ombre de focus */
+}
+
+/* Style du formulaire de filtrage */
+.filter-container {
+  display: flex;
+  gap: 1.5rem; /* Espacement entre les éléments du formulaire */
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  align-items: center; /* Alignement vertical des éléments */
+}
+
+.filter-container label {
+  font-weight: 500; /* Légèrement plus léger que le titre */
+  margin-right: 0.2rem; /* Espacement plus large entre le label et l'input */
+  color: #495057; /* Couleur sombre pour le texte du label */
+}
+
+.filter-container input {
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem; /* Bordure légèrement plus arrondie */
+  width: 220px; /* Largeur fixe mais légèrement plus grande */
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #80bdff;
+  outline: none;
+}
+
+/* Style du tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.2rem;
+}
+
+thead {
+  background-color: #e9ecef;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+th {
+  font-weight: 600;
+  color: #495057;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+  background-color: #ffffff; /* Couleur de survol pour les lignes */
+}
+
+td {
+  vertical-align: middle;
+}
+
+/* Style pour les messages */
+td[colspan="6"] {
+  text-align: center;
+  font-style: italic;
+  color: #6c757d;
+}

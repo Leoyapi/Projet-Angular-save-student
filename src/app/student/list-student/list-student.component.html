@@ -1,0 +1,48 @@
+<h2>Liste des élèves</h2>
+<button routerLink="/create-student">Ajouter un élève</button>
+
+<!-- Formulaire de filtrage -->
+<div class="filter-container">
+  <label for="nomFilter">Filtrer par Nom:</label>
+  <input id="nomFilter" [(ngModel)]="nomFilter" (ngModelChange)="filterEleves()" placeholder="Nom">
+
+  <label for="prenomFilter">Filtrer par Prénom:</label>
+  <input id="prenomFilter" [(ngModel)]="prenomFilter" (ngModelChange)="filterEleves()" placeholder="Prénom">
+</div>
+
+<!-- Affichage des messages -->
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Numéro d'inscription</th>
+      <th>Date de naissance</th>
+      <th>Résidence</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let eleve of filteredEleves; trackBy: trackById">
+      <td>{{ eleve.nom }}</td>
+      <td>{{ eleve.prenom }}</td>
+      <td>{{ eleve.numeroInscription }}</td>
+      <td>{{ eleve.dateNaissance | date }}</td>
+      <td>{{ eleve.residence }}</td>
+      <td>
+        <button (click)="updateEleve(eleve)">Modifier</button>
+        <button (click)="deleteEleve(eleve.id)">Supprimer</button>
+      </td>
+    </tr>
+    <tr *ngIf="filteredEleves.length === 0">
+      <td colspan="6">Aucune donnée trouvée</td>
+    </tr>
+  </tbody>
+</table>

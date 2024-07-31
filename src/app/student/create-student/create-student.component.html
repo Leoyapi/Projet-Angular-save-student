@@ -1,0 +1,45 @@
+<div>
+    <h2>Créer un Élève</h2>
+    <form [formGroup]="eleveForm" (ngSubmit)="saveEleve()">
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <label for="nom">Nom:</label>
+      <input id="nom" formControlName="nom" required>
+      <div *ngIf="eleveForm.get('nom')?.invalid && eleveForm.get('nom')?.touched" class="error-message">
+        Le nom est requis.
+      </div>
+
+      <label for="prenom">Prénom:</label>
+      <input id="prenom" formControlName="prenom" required>
+      <div *ngIf="eleveForm.get('prenom')?.invalid && eleveForm.get('prenom')?.touched" class="error-message">
+        Le prénom est requis.
+      </div>
+
+      <label for="numeroInscription">Matricule:</label>
+      <input id="numeroInscription" formControlName="numeroInscription" required>
+      <div *ngIf="eleveForm.get('numeroInscription')?.invalid && eleveForm.get('numeroInscription')?.touched" class="error-message">
+        Le matricule est requis.
+      </div>
+
+      <label for="dateNaissance">Date de Naissance:</label>
+      <input id="dateNaissance" formControlName="dateNaissance" type="date" required>
+      <div *ngIf="eleveForm.get('dateNaissance')?.invalid && eleveForm.get('dateNaissance')?.touched" class="error-message">
+        La date de naissance est requise.
+      </div>
+
+      <label for="residence">Résidence:</label>
+      <input id="residence" formControlName="residence" required>
+      <div *ngIf="eleveForm.get('residence')?.invalid && eleveForm.get('residence')?.touched" class="error-message">
+        La résidence est requise.
+      </div>
+      <div class="form-actions">
+        <button type="submit">Enregistrer</button>
+        <a [routerLink]="['/list-student']" class="link-button">Voir la liste des élèves</a>
+      </div>
+    </form>
+  </div>
