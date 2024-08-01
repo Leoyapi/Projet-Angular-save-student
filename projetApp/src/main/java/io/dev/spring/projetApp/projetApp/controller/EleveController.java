@@ -20,6 +20,7 @@ public class EleveController {
     @GetMapping
     public ResponseEntity<List<Eleve>> getAllEleves() {
         try {
+            // Récupérer la liste des élèves triée par date d'enregistrement
             List<Eleve> eleves = eleveService.getAllEleves();
             return ResponseEntity.ok(eleves);
         } catch (Exception e) {
@@ -68,7 +69,7 @@ public class EleveController {
             System.out.println("Tentative de suppression de l'élève avec ID : " + id);
 
             // Vérifiez si l'élève existe avant de tenter de le supprimer
-            boolean exists = eleveService.existsById(id); // Ajouter cette méthode dans EleveService
+            boolean exists = eleveService.existsById(id); // Méthode ajoutée dans EleveService
 
             if (!exists) {
                 System.out.println("Élève avec ID " + id + " n'existe pas.");

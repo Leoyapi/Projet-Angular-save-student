@@ -3,7 +3,7 @@ package io.dev.spring.projetApp.projetApp.modele;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Eleve {
@@ -11,6 +11,7 @@ public class Eleve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nom;
     private String prenom;
     private String numeroInscription;
@@ -20,6 +21,10 @@ public class Eleve {
 
     private String residence;
 
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt; // Champ pour la date d'enregistrement
+
+    // Constructeurs
     public Eleve() {
     }
 
@@ -32,6 +37,7 @@ public class Eleve {
         this.residence = residence;
     }
 
+    // Getters et Setters
     public Long getId() {
         return id;
     }
@@ -78,5 +84,18 @@ public class Eleve {
 
     public void setResidence(String residence) {
         this.residence = residence;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now(); // Définir la date d'enregistrement lors de la création
     }
 }

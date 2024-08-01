@@ -3,8 +3,6 @@ package io.dev.spring.projetApp.projetApp.service;
 import io.dev.spring.projetApp.projetApp.modele.Eleve;
 import io.dev.spring.projetApp.projetApp.repository.EleveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,20 +10,16 @@ import java.util.List;
 @Service
 public class EleveService {
 
-    private final EleveRepository eleveRepository;
-
     @Autowired
-    public EleveService(EleveRepository eleveRepository) {
-        this.eleveRepository = eleveRepository;
-    }
+    private EleveRepository eleveRepository;
 
     public List<Eleve> getAllEleves() {
-        return (List<Eleve>) eleveRepository.findAll();
+        // Trier par date de création (createdAt) du plus récent au plus ancien
+        return eleveRepository.findAllByOrderByCreatedAtDesc();
     }
 
     public Eleve getEleveById(Long id) {
-        return eleveRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Élève non trouvé avec l'ID: " + id));
+        return eleveRepository.findById(id).orElse(null);
     }
 
     public Eleve saveEleve(Eleve eleve) {
@@ -33,9 +27,6 @@ public class EleveService {
     }
 
     public void deleteEleve(Long id) {
-        if (!eleveRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Élève non trouvé avec l'ID: " + id);
-        }
         eleveRepository.deleteById(id);
     }
 
