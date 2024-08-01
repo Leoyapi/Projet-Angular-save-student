@@ -6,6 +6,11 @@
     <button routerLink="/create-student">Ajouter un élève</button>
     <input id="nomFilter" [(ngModel)]="nomFilter" (ngModelChange)="filterEleves()" placeholder="Filtrer par Nom">
     <input id="prenomFilter" [(ngModel)]="prenomFilter" (ngModelChange)="filterEleves()" placeholder="Filtrer par Prénom">
+
+    <!-- Sélection du nombre d'élèves à afficher -->
+    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+      <option *ngFor="let option of paginationOptions" [value]="option">{{ option }}</option>
+    </select>
   </div>
 
   <!-- Affichage des messages -->
@@ -23,26 +28,32 @@
         <tr>
           <th>Nom</th>
           <th>Prénom</th>
-          <th>Numéro Matricule </th>
+          <th>Numéro Matricule</th>
           <th>Date de naissance</th>
           <th>Résidence</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let eleve of filteredEleves; trackBy: trackById">
+        <tr *ngFor="let eleve of paginatedEleves; trackBy: trackById">
           <td>{{ eleve.nom }}</td>
           <td>{{ eleve.prenom }}</td>
           <td>{{ eleve.numeroInscription }}</td>
           <td>{{ eleve.dateNaissance | date }}</td>
           <td>{{ eleve.residence }}</td>
-          <td>
-            <button (click)="updateEleve(eleve)">Modifier</button>
-            <button (click)="deleteEleve(eleve.id)">Supprimer</button>
+          <td class="button-container">
+            <button (click)="updateEleve(eleve)" title="Modifier" class="btn-edit">
+              <i class="fas fa-edit"></i>
+              Modifier
+            </button>
+            <button (click)="deleteEleve(eleve.id)" title="Supprimer" class="btn-delete">
+              <i class="fas fa-trash"></i>
+              Supprimer
+            </button>
           </td>
         </tr>
         <tr *ngIf="filteredEleves.length === 0">
-          <td colspan="6">Aucune donnée trouvée</td>
+          <td  colspan="6" class="no-data"><h3>Aucune donnée trouvée</h3></td>
         </tr>
       </tbody>
     </table>

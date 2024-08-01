@@ -17,8 +17,11 @@ export class ListStudentComponent implements OnInit {
   prenomFilter: string = '';
   eleves: Eleve[] = [];
   filteredEleves: Eleve[] = [];
+  paginatedEleves: Eleve[] = [];
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  paginationOptions = [20, 50, 100,200,500,1000]; // Options pour le nombre d'élèves par page
+  itemsPerPage = 20;
 
   constructor(private eleveService: EleveService, private router: Router) {}
 
@@ -31,6 +34,7 @@ export class ListStudentComponent implements OnInit {
       next: (data: Eleve[]) => {
         this.eleves = this.sortElevesByCreationDate(data); // Assurez-vous d'utiliser la méthode de tri correcte
         this.filteredEleves = [...this.eleves];
+        this.updatePagination(); // Initialiser la pagination
         this.errorMessage = null;
         this.successMessage = null;
       },
@@ -52,6 +56,17 @@ export class ListStudentComponent implements OnInit {
       const prenomMatch = this.prenomFilter ? eleve.prenom.toLowerCase().includes(this.prenomFilter.toLowerCase()) : true;
       return nomMatch && prenomMatch;
     });
+    this.updatePagination(); // Mettre à jour la pagination après filtrage
+  }
+
+  updatePagination(): void {
+    const startIndex = 0;
+    const endIndex = this.itemsPerPage;
+    this.paginatedEleves = this.filteredEleves.slice(startIndex, endIndex);
+  }
+
+  onItemsPerPageChange(): void {
+    this.updatePagination(); // Mettre à jour la pagination lorsque le nombre d'éléments par page change
   }
 
   deleteEleve(id: number): void {

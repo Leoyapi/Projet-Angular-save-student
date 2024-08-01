@@ -37,9 +37,11 @@
     <div *ngIf="eleveForm.get('residence')?.invalid && eleveForm.get('residence')?.touched" class="error-message">
       La résidence est requise.
     </div>
+
     <div class="form-actions">
       <button type="submit">Mettre à jour</button>
       <a [routerLink]="['/list-student']" class="link-button">Voir la liste des élèves</a>
     </div>
+
   </form>
 </div>
