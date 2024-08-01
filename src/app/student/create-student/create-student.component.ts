@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router} from '@angular/router';
+//import { Router} from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { Eleve } from '../../core/models/eleve';
 import { EleveService } from '../../core/sevices/eleve';
@@ -17,11 +17,14 @@ export class CreateStudentComponent implements OnInit {
   eleveForm!: FormGroup;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  isLoading: boolean=false; //spinner decla
+
 
   constructor(
     private fb: FormBuilder,
     private eleveService: EleveService,
-    private router: Router
+    //private router: Router
+    private cdr:ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -36,15 +39,27 @@ export class CreateStudentComponent implements OnInit {
 
   saveEleve(): void {
     if (this.eleveForm.valid) {
-      const eleve: Eleve = this.eleveForm.value;
+      const eleve: Eleve = {
+        ...this.eleveForm.value,
+        createdAt: new Date().toISOString() // Ajoutez la date de création ici
+      };
+      console.log('Début du chargement...'); // spin
+      this.isLoading = true; // spin
+      this.cdr.detectChanges();
       this.eleveService.createEleve(eleve).subscribe({
         next: () => {
+          console.log('Chargement terminé avec succès.'); // spin
+          this.isLoading = false; // spin
+          this.cdr.detectChanges();
+          console.log('Chargement terminé avec succès.'); // spin
           this.successMessage = "Élève créé avec succès!";
           this.errorMessage = null;
           this.eleveForm.reset();
-          //this.router.navigate(['/list-student']);
         },
         error: (error) => {
+          console.log('Erreur lors du chargement.'); // spin
+          this.isLoading = false; // spin
+          this.cdr.detectChanges();
           this.errorMessage = "Erreur lors de la création de l'élève. Veuillez réessayer.";
           this.successMessage = null;
           console.error('Erreur:', error);
@@ -56,3 +71,5 @@ export class CreateStudentComponent implements OnInit {
     }
   }
 }
+
+

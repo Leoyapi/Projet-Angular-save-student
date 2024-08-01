@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { Eleve } from '../../core/models/eleve';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { EleveService } from '../../core/sevices/eleve';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { Router, RouterModule } from "@angular/router";
+import { Eleve } from "../../core/models/eleve";
+import { EleveService } from "../../core/sevices/eleve";
 
 @Component({
   selector: 'app-list-student',
@@ -18,7 +18,7 @@ export class ListStudentComponent implements OnInit {
   eleves: Eleve[] = [];
   filteredEleves: Eleve[] = [];
   errorMessage: string | null = null;
-  successMessage: string | null = null; // Ajouté la déclaration
+  successMessage: string | null = null;
 
   constructor(private eleveService: EleveService, private router: Router) {}
 
@@ -29,17 +29,21 @@ export class ListStudentComponent implements OnInit {
   loadEleves(): void {
     this.eleveService.getEleves().subscribe({
       next: (data: Eleve[]) => {
-        this.eleves = data;
-        this.filteredEleves = data;
+        this.eleves = this.sortElevesByCreationDate(data); // Assurez-vous d'utiliser la méthode de tri correcte
+        this.filteredEleves = [...this.eleves];
         this.errorMessage = null;
-        this.successMessage = null; // Réinitialisation du message de succès
+        this.successMessage = null;
       },
       error: (error) => {
         this.errorMessage = 'Erreur lors de la récupération des élèves. Veuillez réessayer.';
-        this.successMessage = null; // Réinitialisation du message de succès
+        this.successMessage = null;
         console.error('Erreur:', error);
       }
     });
+  }
+
+  sortElevesByCreationDate(eleves: Eleve[]): Eleve[] {
+    return eleves.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 
   filterEleves(): void {
@@ -68,9 +72,7 @@ export class ListStudentComponent implements OnInit {
   }
 
   updateEleve(eleve: Eleve): void {
-    // Vérifiez si l'ID est correct
     console.log('Navigating to update-student with ID:', eleve.id);
-
     this.router.navigate(['/update-student', eleve.id]);
   }
 

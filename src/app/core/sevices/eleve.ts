@@ -9,6 +9,7 @@ import { Eleve } from '../models/eleve';
 })
 export class EleveService {
   private baseUrl = 'http://localhost:8080/api/eleves';
+  eleves$: any;
 
   constructor(private http: HttpClient) { }
 

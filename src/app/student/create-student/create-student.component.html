@@ -1,5 +1,7 @@
+
 <div>
     <h2>Créer un Élève</h2>
+    <div *ngIf="isLoading" class="spinner"></div>
     <form [formGroup]="eleveForm" (ngSubmit)="saveEleve()">
       <div *ngIf="successMessage" class="alert alert-success">
         {{ successMessage }}
